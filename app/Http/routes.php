@@ -11,7 +11,11 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,26 +31,30 @@ Route::get('/', function () {
 | kernel and includes session state, CSRF protection, and more.
 |
 */
+Route::post('oauth/access_token', function () {
 
-Route::group(['middleware' => ['web']], function () {
+    $input = Input::all();
+    $request = Request::instance();
+    $request->request->replace($input);
+    Authorizer::setRequest($request);
 
-    Route::get('/client',           ['as' => 'client_index', 'uses' => 'ClientController@index']);
-    Route::post('/client',          ['as' => 'client_store', 'uses' => 'ClientController@store']);
-    Route::get('/client/{id}',      ['as' => 'client_show', 'uses' => 'ClientController@show']);
-    Route::put('/client/{id}',     ['as' => 'client_update', 'uses' => 'ClientController@update']);
-    Route::delete('/client/{id}',   ['as' => 'client_destroy', 'uses' => 'ClientController@destroy']);
+    return Response::json(Authorizer::issueAccessToken());
+});
 
-    Route::get('/project',           ['as' => 'project_index', 'uses' => 'ProjectController@index']);
-    Route::post('/project',          ['as' => 'project_store', 'uses' => 'ProjectController@store']);
-    Route::get('/project/{id}',      ['as' => 'project_show', 'uses' => 'ProjectController@show']);
-    Route::put('/project/{id}',     ['as' => 'project_update', 'uses' => 'ProjectController@update']);
-    Route::delete('/project/{id}',   ['as' => 'project_destroy', 'uses' => 'ProjectController@destroy']);
 
-    Route::get('project/notes/{id}',            ['as' => 'project_note_index', 'uses' => 'ProjectNoteController@index']);
-    Route::post('/notes',                       ['as' => 'project_note_store', 'uses' => 'ProjectNoteController@store']);
-    Route::get('/project/{id}/note/{noteId}',   ['as' => 'project_note_show', 'uses' => 'ProjectNoteController@show']);
-    Route::put('/notes/{id}',                  ['as' => 'project_note_update', 'uses' => 'ProjectNoteController@update']);
-    Route::delete('/notes/{id}',                ['as' => 'project_note_destroy', 'uses' => 'ProjectNoteController@destroy']);
+Route::group(['middleware' => ['web', 'oauth']], function () {
+
+    Route::resource('client', 'ClientController', ['except' => ['create', 'edit']]);
+
+    Route::resource('project', 'ProjectController', ['except' => ['create', 'edit']]);
+
+    Route::group(['prefix' => 'project'], function () {
+        Route::get('{id}/note', ['as' => 'project_note_index', 'uses' => 'ProjectNoteController@index']);
+        Route::post('{id}/note', ['as' => 'project_note_store', 'uses' => 'ProjectNoteController@store']);
+        Route::get('{id}/note/{noteId}', ['as' => 'project_note_show', 'uses' => 'ProjectNoteController@show']);
+        Route::delete('/note/{id}', ['as' => 'project_note_destroy', 'uses' => 'ProjectNoteController@destroy']);
+        Route::post('{id}/file', 'ProjectFileController@store');
+    });
 
 
 });

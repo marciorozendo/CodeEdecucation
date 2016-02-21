@@ -30,4 +30,7 @@ class ProjectNoteRepositoryEloquent extends BaseRepository implements ProjectNot
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
+
+
+
 }

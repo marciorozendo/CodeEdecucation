@@ -148,6 +148,16 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+
+        /*
+         * Instalação de Pacotes Externos
+         *
+         * */
+
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
+
+
+
         /*
          * Application Service Providers...
          */
@@ -156,6 +166,12 @@ return [
         CodeEducation\Providers\EventServiceProvider::class,
         CodeEducation\Providers\RouteServiceProvider::class,
 
+        /*
+         * Provider Responsável pelo Elo de Repositries
+         *
+         * */
+
+        CodeEducation\Providers\CodeEducationProvider::class,
     ],
 
     /*

@@ -2,19 +2,19 @@
 
 namespace CodeEducation\Http\Controllers;
 
-use CodeEducation\Services\ClientService;
+use CodeEducation\Services\ProjectService;
 use Illuminate\Http\Request;
 
 
 
-class ClientController extends Controller{
+class ProjectController extends Controller{
 
     /**
      * @var Request
      */
     private $request;
     /**
-     * @var ClientService
+     * @var ProjectService
      */
     private $service;
 
@@ -23,7 +23,7 @@ class ClientController extends Controller{
      * @param Request $request
      * @internal param $repository
      */
-    public function __construct(ClientService $service,Request $request)
+    public function __construct(ProjectService $service,Request $request)
     {
         $this->request = $request;
         $this->service = $service;

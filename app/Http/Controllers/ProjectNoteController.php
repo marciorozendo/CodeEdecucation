@@ -2,19 +2,19 @@
 
 namespace CodeEducation\Http\Controllers;
 
-use CodeEducation\Services\ClientService;
+use CodeEducation\Services\ProjectNoteService;
 use Illuminate\Http\Request;
 
 
 
-class ClientController extends Controller{
+class ProjectNoteController extends Controller{
 
     /**
      * @var Request
      */
     private $request;
     /**
-     * @var ClientService
+     * @var ProjectService
      */
     private $service;
 
@@ -23,17 +23,17 @@ class ClientController extends Controller{
      * @param Request $request
      * @internal param $repository
      */
-    public function __construct(ClientService $service,Request $request)
+    public function __construct(ProjectNoteService $service,Request $request)
     {
         $this->request = $request;
         $this->service = $service;
     }
 
 
-    public function index()
+    public function index($id)
     {
 
-        return $this->service->all();
+        return $this->service->all($id);
 
     }
 
@@ -43,9 +43,9 @@ class ClientController extends Controller{
 
     }
 
-    public function show($id)
+    public function show($id,$noteId)
     {
-        return $this->service->show($id);
+        return $this->service->show($id,$noteId);
 
     }
     public function update($id)

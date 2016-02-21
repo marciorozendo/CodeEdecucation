@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeEducation;
+namespace CodeEducation\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 

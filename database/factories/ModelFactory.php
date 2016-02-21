@@ -11,7 +11,12 @@
 |
 */
 
-$factory->define(CodeEducation\User::class, function (Faker\Generator $faker) {
+use CodeEducation\Entities\Client;
+use CodeEducation\Entities\Project;
+use CodeEducation\Entities\ProjectNote;
+use CodeEducation\Entities\User;
+
+$factory->define(User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
@@ -20,7 +25,7 @@ $factory->define(CodeEducation\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(CodeEducation\Client::class, function (Faker\Generator $faker) {
+$factory->define(Client::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'responsible' => $faker->name,
@@ -28,5 +33,25 @@ $factory->define(CodeEducation\Client::class, function (Faker\Generator $faker) 
         'phone' => $faker->phoneNumber,
         'address' => $faker->address,
         'obs' => $faker->sentence,
+    ];
+});
+
+$factory->define(Project::class, function (Faker\Generator $faker) {
+    return [
+        'owner_id' => rand(1,10),
+        'client_id' => rand(1,10),
+        'name' => $faker->word,
+        'description' => $faker->sentence(),
+        'progress' => rand(1,100),
+        'status' => rand(1,3),
+        'due_date' => $faker->dateTime('now')
+    ];
+});
+
+$factory->define(ProjectNote::class, function (Faker\Generator $faker) {
+    return [
+        'project_id' => rand(1,10),
+        'title' => $faker->word,
+        'note' => $faker->paragraph,
     ];
 });

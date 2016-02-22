@@ -3,7 +3,7 @@
 /public/storage
 Homestead.yaml
 Homestead.json
-
-
+resorces/bower_components
+/public/build
 .env
 .idea

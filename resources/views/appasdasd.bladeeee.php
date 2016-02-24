@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Laravel</title>
 
-    @if(Config::get('app_debug'))
+    {{--@if(Config::get('app_debug'))--}}
         <link rel="stylesheet" href="{{ asset('build/css/vendor/bootstrap.mim.css') }}"/>
         <link rel="stylesheet" href="{{ asset('build/css/vendor/bootstrap-theme.mim.css') }}"/>
-    @else
-        <link rel="stylesheet" href="{{ elixir('css/all.css') }}"/>
-    @endif
+    {{--@else--}}
+        {{--<link rel="stylesheet" href="{{ elixir('css/all.css') }}"/>--}}
+    {{--@endif--}}
             <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 
@@ -65,7 +65,7 @@
 @yield('content')
 
         <!-- Scripts -->
-        @if(Config::get('app_debug'))
+        {{--@if(\Config::get('app_debug'))--}}
             <script src="{{ asset('build/js/vendor/jquery.mim.js') }}"></script>
             <script src="{{ asset('build/js/vendor/angular.mim.js') }}"></script>
             <script src="{{ asset('build/js/vendor/angular-route.mim.js') }}"></script>
@@ -73,8 +73,8 @@
             <script src="{{ asset('build/js/vendor/angular-messages.mim.js') }}"></script>
             <script src="{{ asset('build/js/vendor/ui-bootstrap.mim.js') }}"></script>
             <script src="{{ asset('build/js/vendor/navbar.mim.js') }}"></script>
-        @else
-            <script src="{{ elixir('js/all.js') }}"></script>
-        @endif
+        {{--@else--}}
+            {{--<script src="{{ elixir('js/all.js') }}"></script>--}}
+        {{--@endif--}}
 </body>
 </html>

@@ -19,7 +19,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    return view('add');
+    return view('app');
+});
+
+Route::post('oauth/access_token', function () {
+
+//    $input = Input::all();
+//    $request = Request::instance();
+//    $request->request->replace($input);
+//    Authorizer::setRequest($request);
+
+    return Response::json(Authorizer::issueAccessToken());
 });
 
 /*
@@ -32,15 +42,6 @@ Route::get('/', function () {
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-Route::post('oauth/access_token', function () {
-
-    $input = Input::all();
-    $request = Request::instance();
-    $request->request->replace($input);
-    Authorizer::setRequest($request);
-
-    return Response::json(Authorizer::issueAccessToken());
-});
 
 
 Route::group(['middleware' => ['web', 'oauth']], function () {
